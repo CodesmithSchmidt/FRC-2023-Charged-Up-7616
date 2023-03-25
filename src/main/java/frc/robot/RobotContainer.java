@@ -20,6 +20,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick driver2 = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -28,7 +29,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kBack.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -59,11 +60,12 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        /* Driver Buttons */
+        /* Driver 1 Buttons */
         /* Start Button = zero gyro
-         * Left Bumper = robot centric driving
+         * X = robot centric driving
          * 
          * 
+         * Driver 2 Buttons
          * X elevator in (only while angle is at scoring)
          * B elevator out (only while angle is at scoring)
          * Y angle up (if elevator has triggered lim switch)
@@ -78,12 +80,12 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
         //TODO: Test all motor polarity for forward/back and adjust speed variable
-        new JoystickButton(driver, XboxController.Button.kB.value).whileTrue(new ElevatorControl( a_angleSet, .75));
-        new JoystickButton(driver, XboxController.Button.kX.value).whileTrue(new ElevatorControl( a_angleSet, -.5));
-        new JoystickButton(driver, XboxController.Button.kY.value).whileTrue(new AngleControlCmd(a_angleSet, .2));
-        new JoystickButton(driver, XboxController.Button.kA.value).whileTrue(new AngleControlCmd(a_angleSet, -.2));
-        new JoystickButton(driver, XboxController.Button.kLeftBumper.value).whileTrue(new ClawGrab(c_claw,  .2));
-        new JoystickButton(driver, XboxController.Button.kRightBumper.value).whileTrue(new ClawGrab(c_claw,  -.2));
+        new JoystickButton(driver2, XboxController.Button.kB.value).whileTrue(new ElevatorControl( a_angleSet, .75));
+        new JoystickButton(driver2, XboxController.Button.kX.value).whileTrue(new ElevatorControl( a_angleSet, -.5));
+        new JoystickButton(driver2, XboxController.Button.kY.value).whileTrue(new AngleControlCmd(a_angleSet, .75));
+        new JoystickButton(driver2, XboxController.Button.kA.value).whileTrue(new AngleControlCmd(a_angleSet, -.75));
+        new JoystickButton(driver2, XboxController.Button.kLeftBumper.value).whileTrue(new ClawGrab(c_claw,  .2));
+        new JoystickButton(driver2, XboxController.Button.kRightBumper.value).whileTrue(new ClawGrab(c_claw,  -.2));
         
     }
 
@@ -94,8 +96,9 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
+        return new timeAutonomous(s_Swerve);
 
-        return new exampleAuto(s_Swerve);
+       // return new exampleAuto(s_Swerve);
        //return new getBread(s_Swerve, s_Swerve.gyro );
     }
 }

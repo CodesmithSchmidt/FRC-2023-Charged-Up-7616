@@ -66,7 +66,7 @@ public double getEncoderMeters() {
 
   public void setAngleMotor(double speed){
     
-    if (speed < 0 && Math.abs(getEncoderMeters()) < 32.5){
+    if (speed < 0 && Math.abs(getEncoderMeters()) < 16){
     if(elevatorLimit.get()){
       angleMotor.set(TalonFXControlMode.PercentOutput, speed);
     }
@@ -86,7 +86,7 @@ public double getEncoderMeters() {
   public void setElevatorMotor(double speed){
     //TODO: Check distance to find appropriate value
     
-    if(Math.abs(getEncoderMeters()) < 32.5){
+    if(Math.abs(getEncoderMeters()) < 16){
       elevatorMotor.set(VictorSPXControlMode.PercentOutput, speed);
       }
     else {

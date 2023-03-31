@@ -82,8 +82,8 @@ public class RobotContainer {
         //TODO: Test all motor polarity for forward/back and adjust speed variable
         new JoystickButton(driver2, XboxController.Button.kB.value).whileTrue(new ElevatorControl( a_angleSet, .75));
         new JoystickButton(driver2, XboxController.Button.kX.value).whileTrue(new ElevatorControl( a_angleSet, -.5));
-        new JoystickButton(driver2, XboxController.Button.kY.value).whileTrue(new AngleControlCmd(a_angleSet, .75));
-        new JoystickButton(driver2, XboxController.Button.kA.value).whileTrue(new AngleControlCmd(a_angleSet, -.75));
+        new JoystickButton(driver2, XboxController.Button.kY.value).whileTrue(new AngleControlCmd(a_angleSet, .25));
+        new JoystickButton(driver2, XboxController.Button.kA.value).whileTrue(new AngleControlCmd(a_angleSet, -.15));
         new JoystickButton(driver2, XboxController.Button.kLeftBumper.value).whileTrue(new ClawGrab(c_claw,  .2));
         new JoystickButton(driver2, XboxController.Button.kRightBumper.value).whileTrue(new ClawGrab(c_claw,  -.2));
         

@@ -35,19 +35,19 @@ public class timeAutonomous extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double time = a_timer.get();
-
+  
     //For 1 second drive forward at 25% speed
-    while(time < 1){
+    while(a_timer.get() < 1){
       a_Swerve.drive(new Translation2d(.25,0), 0, true, false);
+      
     }
     //While gyro is not level, drive the correct direction to level
     while(Math.abs(a_Swerve.gyro.getPitch()) > 10){
       if(a_Swerve.gyro.getPitch() > 0){
-        a_Swerve.drive(new Translation2d(.1,0),0,true,false);
+        a_Swerve.drive(new Translation2d(.25,0),0,true,false);
       }
       else {
-        a_Swerve.drive(new Translation2d(-.1,0),0,true,false);
+        a_Swerve.drive(new Translation2d(-.25,0),0,true,false);
       }
     }
     
